@@ -1,0 +1,9 @@
+<% if (success_msg != '') { %>
+<script>
+  Swal.fire('Success', '<%- success_msg %>', 'success');
+</script>
+<% } %> <% if (error_msg != '') { %>
+<script>
+  Swal.fire('Oops...', '<%- error_msg %>', 'error');
+</script>
+<% } %>

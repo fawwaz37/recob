@@ -8,6 +8,5 @@ import { Bank, OTP, User } from './entity';
   providers: [UserService],
   controllers: [UserController],
   imports: [TypeOrmModule.forFeature([User, OTP, Bank])],
-  exports: [UserService],
 })
 export class UserModule {}

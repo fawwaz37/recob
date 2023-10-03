@@ -1,0 +1,155 @@
+<div class="page-heading">
+  <h3>Dashboard</h3>
+</div>
+<div class="page-content">
+  <%- include('../layouts/alert') %>
+  <section class="row">
+    <div class="col-12 col-lg-9">
+      <div class="row">
+        <div class="col-6 col-lg-12 col-md-6">
+          <div class="card">
+            <div class="card-body px-4 py-4-5">
+              <img class="card-img-top img-fluid" src="/image/Banner.png" alt="foto bg" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4>Logs Session</h4>
+              <div class="divider">
+                <div id="cancelqr" class="divider-text">
+                  Create Session &nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i>
+                </div>
+              </div>
+            </div>
+            <div class="card-body" id="socket-qr" style="min-height: 200px">
+              <div id="logger"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-3">
+      <div class="card">
+        <div class="card-body py-4-5 px-4">
+          <div class="d-flex align-items-center">
+            <div class="avatar avatar-xl">
+              <img src="/image/admin.webp" alt="Face 1" />
+            </div>
+            <div class="ms-3 name">
+              <h5 class="font-bold">Admin</h5>
+              <a
+                href="https://api.whatsapp.com/send/?phone=6287715579966&text&app_absent=0"
+                class="btn btn-primary"
+                target="_blank"
+                ><i class="fab fa-whatsapp"></i>&nbsp; WhatsApp</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h4>Create Session</h4>
+        </div>
+        <div class="card-content">
+          <div class="recent-message px-4 py-3">
+            <form action="/session/create-session" method="post">
+              <center>
+                <div class="form-group">
+                  <input type="text" name="session_name" class="form-control" placeholder="Session Name" required />
+                </div>
+                <div class="pb-4"></div>
+                <button class="btn btn-primary">
+                  <i class="fa-solid fa-qrcode"></i>
+                  &nbsp Create
+                </button>
+              </center>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h4>Session Active</h4>
+        </div>
+        <div class="card-content">
+          <div class="recent-message px-4 py-3"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="divider">
+    <div class="divider-text">
+      <a href="https://github.com/fawwaz37/whatsapp-gateway" target="_blank">Zekais - 2022 &copy; Mazer</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  async function alertStartSession(session_name) {
+    Swal.fire({
+      title: `Start Session`,
+      html: `Are You Sure Start Session ${session_name}?`,
+      icon: 'question',
+      confirmButtonText: `Start Session`,
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        return fetch(`/session/start-session?session=${session_name}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}!`);
+          });
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (result.value.status == 200) {
+          Swal.fire('Success!', JSON.stringify(result.value.message), 'success');
+        } else {
+          Swal.fire(`Status ${result.value.status}`, JSON.stringify(result.value.message), 'error');
+        }
+      }
+    });
+  }
+
+  async function alertStopSession(session_name) {
+    Swal.fire({
+      title: `Stop Session`,
+      html: `Are You Sure Stop Session ${session_name}?`,
+      icon: 'question',
+      confirmButtonText: `Stop Session`,
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        return fetch(`/session/stop-session?session=${session_name}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}!`);
+          });
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (result.value.status == 200) {
+          Swal.fire('Success!', JSON.stringify(result.value.message), 'success');
+        } else {
+          Swal.fire(`Status ${result.value.status}`, JSON.stringify(result.value.message), 'error');
+        }
+      }
+    });
+  }
+</script>

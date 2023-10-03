@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,6 +9,10 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { SchedulerService } from './lib/scheduler';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AllPurposeInterceptor } from './lib/all-purpose.interceptor';
+import { TabungModule } from './tabung/tabung.module';
+import { AdminModule } from './admin/admin.module';
+import { OtpRepository } from './user/repository/otp.repository';
+import { MyLocalsMiddleware } from './lib/locals.middleware';
 
 @Module({
   imports: [
@@ -38,9 +42,12 @@ import { AllPurposeInterceptor } from './lib/all-purpose.interceptor';
     }),
     UserModule,
     AuthModule,
+    TabungModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [
+    OtpRepository,
     AppService,
     SchedulerService,
     {
@@ -52,5 +59,8 @@ import { AllPurposeInterceptor } from './lib/all-purpose.interceptor';
 export class AppModule {
   constructor(private readonly schedulerService: SchedulerService) {
     this.schedulerService.startCron();
+  }
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(MyLocalsMiddleware).forRoutes('*');
   }
 }

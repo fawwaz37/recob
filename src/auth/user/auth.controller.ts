@@ -1,17 +1,8 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  HttpCode,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { BadRequestException, Body, Controller, HttpCode, Param, Post, Put } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto, SignUserDto } from 'src/auth/dto';
-import { ResetPassDto } from './dto/reset-pass.dto';
+import { CreateUserDto, SignUserDto, ResetPassDto } from 'src/auth/dto';
 
-@Controller('auth')
+@Controller('auth/user')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
