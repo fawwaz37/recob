@@ -17,42 +17,22 @@
             <li class="breadcrumb-item">
               <a href="/">Dashboard</a>
             </li>
-            <li class="breadcrumb-item">
-              <a href="/sampah">Sampah</a>
-            </li>
             <li class="breadcrumb-item active" aria-current="page">Upload Sampah</li>
           </ol>
         </nav>
       </div>
     </div>
   </div>
-  <section class="section">
-    <div class="row">
-      <!-- <div class="col-12 col-md-6">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title">Basic File Uploader</h5>
-          </div>
-          <div class="card-content">
-            <div class="card-body">
-              <p class="card-text">
-                Using the basic file uploader up, upload here to see how
-                <code>.basic-filepond</code> look.
-              </p>
-              <input type="file" class="basic-filepond" />
+  <form class="form form-vertical" action="/admin/sampah" method="post" enctype="multipart/form-data">
+    <section class="section">
+      <div class="row">
+        <div class="col-md-6 col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Data Kategori</h4>
             </div>
-          </div>
-        </div>
-      </div> -->
-
-      <div class="col-md-6 col-12">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Data Kategori</h4>
-          </div>
-          <div class="card-content">
-            <div class="card-body">
-              <form class="form form-vertical">
+            <div class="card-content">
+              <div class="card-body">
                 <div class="form-body">
                   <div class="row">
                     <div class="col-12">
@@ -62,278 +42,94 @@
                           type="text"
                           id="first-name-vertical"
                           class="form-control"
-                          name="fname"
+                          name="name"
                           placeholder="Besi"
+                          required
                         />
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
                         <label for="email-id-vertical">Reward /kg</label>
-                        <input
-                          type="text"
-                          id="email-id-vertical"
-                          class="form-control"
-                          name="email-id"
-                          placeholder="1000"
-                        />
+                        <input type="text" id="reward" class="form-control" name="reward" placeholder="1000" required />
                       </div>
                     </div>
-                    <div class="col-12">
-                      <div class="form-group">
-                        <label for="contact-info-vertical">Deskripsi</label>
-                        <textarea
-                          id="messageText"
-                          name="message"
-                          class="form-control"
-                          rows="3"
-                          placeholder="Deskripsi Besi"
-                          required
-                        ></textarea>
-                      </div>
-                    </div>
+
                     <div class="col-12 d-flex justify-content-end">
                       <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
                       <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                     </div>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-12 col-md-6">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="card-title">Upload Image</h5>
-          </div>
-          <div class="card-content">
-            <div class="card-body">
-              <p class="card-text">Upload gambar kategori sampah, dan lakukan Preview</p>
-              <input type="file" class="image-preview-filepond" />
+        <div class="col-12 col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Upload Image</h5>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <p class="card-text">Upload gambar kategori sampah, dan lakukan Preview</p>
+                <center>
+                  <label for="imageInput" class="btn btn-primary me-1 mb-1">
+                    <i class="fa fa-cloud-upload"></i>&nbsp; Upload Image
+                  </label>
+                  <input
+                    id="imageInput"
+                    type="file"
+                    name="image"
+                    class="image-preview-filepond"
+                    style="display: none"
+                    accept="image/*"
+                    required
+                  />
+                  <h5 style="padding-top: 20px"><strong>Image Preview</strong></h5>
+                  <img
+                    id="imagePreview"
+                    src="#"
+                    alt="Preview Image"
+                    style="max-width: 300px; max-height: 300px; display: none; padding: 10px"
+                  />
+                </center>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </form>
 </div>
 
 <footer>
-  <div class="footer clearfix mb-0 text-muted">
-    <div class="float-start">
-      <p>2021 &copy; Mazer</p>
-    </div>
-    <div class="float-end">
-      <p>
-        Crafted with
-        <span class="text-danger"><i class="bi bi-heart"></i></span> by
-        <a href="http://ahmadsaugi.com">A. Saugi</a>
-      </p>
+  <div class="divider">
+    <div class="divider-text">
+      <a href="https://github.com/fawwaz37/whatsapp-gateway" target="_blank">Zekais - 2022 &copy; Mazer</a>
     </div>
   </div>
 </footer>
 
-<!-- filepond validation -->
-<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-
-<!-- image editor -->
-<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-filter/dist/filepond-plugin-image-filter.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-<!-- filepond -->
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 <script>
-  // register desired plugins...
-  FilePond.registerPlugin(
-    // validates the size of the file...
-    FilePondPluginFileValidateSize,
-    // validates the file type...
-    FilePondPluginFileValidateType,
+  function previewImage() {
+    const input = document.getElementById('imageInput');
+    const preview = document.getElementById('imagePreview');
 
-    // calculates & dds cropping info based on the input image dimensions and the set crop ratio...
-    FilePondPluginImageCrop,
-    // preview the image file type...
-    FilePondPluginImagePreview,
-    // filter the image file
-    FilePondPluginImageFilter,
-    // corrects mobile image orientation...
-    FilePondPluginImageExifOrientation,
-    // calculates & adds resize information...
-    FilePondPluginImageResize,
-  );
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
 
-  // Filepond: Basic
-  FilePond.create(document.querySelector('.basic-filepond'), {
-    allowImagePreview: false,
-    allowMultiple: false,
-    allowFileEncode: false,
-    required: false,
-  });
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      };
 
-  // Filepond: Multiple Files
-  FilePond.create(document.querySelector('.multiple-files-filepond'), {
-    allowImagePreview: false,
-    allowMultiple: true,
-    allowFileEncode: false,
-    required: false,
-  });
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
 
-  // Filepond: With Validation
-  FilePond.create(document.querySelector('.with-validation-filepond'), {
-    allowImagePreview: false,
-    allowMultiple: true,
-    allowFileEncode: false,
-    required: true,
-    acceptedFileTypes: ['image/png'],
-    fileValidateTypeDetectType: (source, type) =>
-      new Promise((resolve, reject) => {
-        // Do custom type detection here and return with promise
-        resolve(type);
-      }),
-  });
-
-  // Filepond: ImgBB with server property
-  FilePond.create(document.querySelector('.imgbb-filepond'), {
-    allowImagePreview: false,
-    server: {
-      process: (fieldName, file, metadata, load, error, progress, abort) => {
-        // We ignore the metadata property and only send the file
-
-        const formData = new FormData();
-        formData.append(fieldName, file, file.name);
-
-        const request = new XMLHttpRequest();
-        // you can change it by your client api key
-        request.open('POST', 'https://api.imgbb.com/1/upload?key=762894e2014f83c023b233b2f10395e2');
-
-        request.upload.onprogress = (e) => {
-          progress(e.lengthComputable, e.loaded, e.total);
-        };
-
-        request.onload = function () {
-          if (request.status >= 200 && request.status < 300) {
-            load(request.responseText);
-          } else {
-            error('oh no');
-          }
-        };
-
-        request.onreadystatechange = function () {
-          if (this.readyState == 4) {
-            if (this.status == 200) {
-              let response = JSON.parse(this.responseText);
-
-              Toastify({
-                text: 'Success uploading to imgbb! see console f12',
-                duration: 3000,
-                close: true,
-                gravity: 'bottom',
-                position: 'right',
-                backgroundColor: '#4fbe87',
-              }).showToast();
-
-              console.log(response);
-            } else {
-              Toastify({
-                text: 'Failed uploading to imgbb! see console f12',
-                duration: 3000,
-                close: true,
-                gravity: 'bottom',
-                position: 'right',
-                backgroundColor: '#ff0000',
-              }).showToast();
-
-              console.log('Error', this.statusText);
-            }
-          }
-        };
-
-        request.send(formData);
-      },
-    },
-  });
-
-  // Filepond: Image Preview
-  FilePond.create(document.querySelector('.image-preview-filepond'), {
-    allowImagePreview: true,
-    allowImageFilter: false,
-    allowImageExifOrientation: false,
-    allowImageCrop: false,
-    acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-    fileValidateTypeDetectType: (source, type) =>
-      new Promise((resolve, reject) => {
-        // Do custom type detection here and return with promise
-        resolve(type);
-      }),
-  });
-
-  // Filepond: Image Crop
-  FilePond.create(document.querySelector('.image-crop-filepond'), {
-    allowImagePreview: true,
-    allowImageFilter: false,
-    allowImageExifOrientation: false,
-    allowImageCrop: true,
-    acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-    fileValidateTypeDetectType: (source, type) =>
-      new Promise((resolve, reject) => {
-        // Do custom type detection here and return with promise
-        resolve(type);
-      }),
-  });
-
-  // Filepond: Image Exif Orientation
-  FilePond.create(document.querySelector('.image-exif-filepond'), {
-    allowImagePreview: true,
-    allowImageFilter: false,
-    allowImageExifOrientation: true,
-    allowImageCrop: false,
-    acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-    fileValidateTypeDetectType: (source, type) =>
-      new Promise((resolve, reject) => {
-        // Do custom type detection here and return with promise
-        resolve(type);
-      }),
-  });
-
-  // Filepond: Image Filter
-  FilePond.create(document.querySelector('.image-filter-filepond'), {
-    allowImagePreview: true,
-    allowImageFilter: true,
-    allowImageExifOrientation: false,
-    allowImageCrop: false,
-    imageFilterColorMatrix: [
-      0.299, 0.587, 0.114, 0, 0, 0.299, 0.587, 0.114, 0, 0, 0.299, 0.587, 0.114, 0, 0, 0.0, 0.0, 0.0, 1, 0,
-    ],
-    acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-    fileValidateTypeDetectType: (source, type) =>
-      new Promise((resolve, reject) => {
-        // Do custom type detection here and return with promise
-        resolve(type);
-      }),
-  });
-
-  // Filepond: Image Resize
-  FilePond.create(document.querySelector('.image-resize-filepond'), {
-    allowImagePreview: true,
-    allowImageFilter: false,
-    allowImageExifOrientation: false,
-    allowImageCrop: false,
-    allowImageResize: true,
-    imageResizeTargetWidth: 200,
-    imageResizeTargetHeight: 200,
-    imageResizeMode: 'cover',
-    imageResizeUpscale: true,
-    acceptedFileTypes: ['image/png', 'image/jpg', 'image/jpeg'],
-    fileValidateTypeDetectType: (source, type) =>
-      new Promise((resolve, reject) => {
-        // Do custom type detection here and return with promise
-        resolve(type);
-      }),
-  });
+  // Menambahkan event listener ke input file
+  const imageInput = document.getElementById('imageInput');
+  imageInput.addEventListener('change', previewImage);
 </script>

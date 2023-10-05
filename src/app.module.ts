@@ -13,6 +13,7 @@ import { TabungModule } from './tabung/tabung.module';
 import { AdminModule } from './admin/admin.module';
 import { OtpRepository } from './user/repository/otp.repository';
 import { MyLocalsMiddleware } from './lib/locals.middleware';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -39,6 +40,9 @@ import { MyLocalsMiddleware } from './lib/locals.middleware';
         },
         from: process.env.EMAIL,
       },
+    }),
+    MulterModule.register({
+      dest: './upload',
     }),
     UserModule,
     AuthModule,

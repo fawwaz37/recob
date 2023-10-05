@@ -22,18 +22,26 @@
       <ul class="menu">
         <li class="sidebar-title">Menu</li>
 
-        <li class="sidebar-item active">
-          <a href="/dashboard" class="sidebar-link">
+        <li class="sidebar-item <% if (url == '/admin/dashboard') { %> active <% } %>">
+          <a href="/admin/dashboard" class="sidebar-link">
             <i class="fa-solid fa-table-columns"></i>
             <span>Dashboard</span>
           </a>
         </li>
 
-        <li class="sidebar-item">
-          <a href="/dashboard/kategori-sampah" class="sidebar-link">
-            <i class="fa-solid fa-paper-plane"></i>
+        <li class="sidebar-item has-sub">
+          <a href="#" class="sidebar-link">
+            <i class="fa-solid fa-recycle"></i>
             <span>Kategori Sampah</span>
           </a>
+          <ul class="submenu">
+            <li class="submenu-item <% if (url == '/admin/sampah') { %> active <% } %>">
+              <a href="/admin/sampah"><i class="fa-solid fa-list"></i>&nbsp; List Kategori</a>
+            </li>
+            <li class="submenu-item <% if (url == '/admin/sampah/create') { %> active <% } %>">
+              <a href="/admin/sampah/create"><i class="fa-solid fa-square-plus"></i>&nbsp; Buat Kategori</a>
+            </li>
+          </ul>
         </li>
 
         <li class="sidebar-item">

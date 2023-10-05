@@ -8,10 +8,17 @@ import { LocalAuthExceptionFilter } from 'src/auth/strategy';
 
 @Controller('admin')
 @UseFilters(LocalAuthExceptionFilter)
+@UseGuards(AuthenticatedGuard)
 export class AdminController {
-  @UseGuards(AuthenticatedGuard)
   @Get('/dashboard')
-  secure(@GetUser('') admin: Admin, @Res() res: Response, @Req() req: IRequestFlash) {
+  dashboard(@GetUser('') admin: Admin, @Res() res: Response, @Req() req: IRequestFlash) {
+    return res.render('dashboard/index', {
+      layout: 'layouts/main',
+    });
+  }
+
+  @Get('/category')
+  category(@Res() res: Response) {
     return res.render('dashboard/index', {
       layout: 'layouts/main',
     });

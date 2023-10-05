@@ -1,0 +1,215 @@
+<div class="main-content">
+  <div class="content-wrapper container">
+    <%- include('../layouts/alert') %>
+    <div class="page-heading">
+      <div class="page-title">
+        <div class="row">
+          <div class="col-12 col-md-6 order-md-1 order-last">
+            <h3>Kategori Sampah</h3>
+            <p class="text-subtitle text-muted">List Kategori Sampah</p>
+          </div>
+          <div class="col-12 col-md-6 order-md-2 order-first">
+            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Kategori Sampah</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+      <section class="section">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">List Kategori Sampah</h5>
+            <p class="text-subtitle text-muted">Kategori Sampah Yang Dibuat Akan Tampil Dibawah</p>
+          </div>
+          <div class="card-body">
+            <div style="overflow-x: auto !important">
+              <table class="table" id="table1">
+                <thead>
+                  <tr>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th>Nama Kategori</th>
+                    <th>Gambar</th>
+                    <th>Reward</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (Array.isArray(list) && list.length) { %> <% list.forEach((el, index) => { %>
+                  <tr>
+                    <td><%= arrDate[index].createdAt %></td>
+                    <td><%= arrDate[index].updatedAt %></td>
+                    <td><%= el.name %></td>
+                    <td>
+                      <img
+                        style="height: 100px; width: 100; padding: 5px"
+                        src="<%= el.image.split('public')[1] %> "
+                        alt="Image <%= el.name %>"
+                      />
+                    </td>
+                    <td><%= el.reward %> / kg</td>
+                    <td>
+                      <button
+                        onclick="alertKeyword('<%= el.barang_id %>', '<%= el.name %>', '<%= el.reward %> ')"
+                        style="margin-top: 5px"
+                        class="btn btn-success"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Edit Kategori"
+                      >
+                        <i class="fa-solid fa-sliders"></i>
+                      </button>
+                      <button
+                        onclick="alertDeleteCategory('<%= el.barang_id %>', '<%= el.name %>')"
+                        style="margin-top: 5px"
+                        class="btn btn-danger"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Delete Kategori"
+                      >
+                        <i class="fa-solid fa-trash-can"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <% }); %> <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <div class="divider">
+        <div class="divider-text">
+          <a href="https://github.com/fawwaz37/whatsapp-gateway" target="_blank">Zekais - 2022 &copy; Mazer</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="/mazer/assets/extensions/jquery/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+<script src="/mazer/assets/js/pages/datatables.js"></script>
+
+<script>
+  async function alertDeleteCategory(id, name) {
+    Swal.fire({
+      title: `Delete Kategori`,
+      html: `Anda Yakin Menghapus Kategori ${name}?`,
+      icon: 'question',
+      confirmButtonText: `Delete`,
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        return fetch(`/admin/sampah/${id}`, {
+          method: 'DELETE',
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}!`);
+          });
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (result.value.statusCode == 200) {
+          Swal.fire('Success!', JSON.stringify(result.value.data.message), 'success').then(function () {
+            window.location = '/admin/sampah';
+          });
+        } else {
+          Swal.fire(`Status ${result.value.statusCode}`, JSON.stringify(result.value.message), 'error');
+        }
+      }
+    });
+  }
+
+  function alertKeyword(barang_id, name, reward) {
+    var titleSwal = 'Edit Kategori';
+    var htmlSwal =
+      '<center>' +
+      `<label style="padding: 10px;">Nama Kategori</label><div class="col-md-8 form-group"><input id="kategoriname" type="text" name="name" class="form-control" value="${name}" required /></div>` +
+      `<label style="padding: 10px;">Reward</label><div class="col-md-8 form-group"><input id="kategorireward" type="number" name="reward" class="form-control" value="${reward}" required /></div>` +
+      `<img id="imagePreview" src="#" alt="Preview Image" style="max-width: 300px; max-height: 300px; display: none; padding: 10px" />` +
+      `<div class="col-md-8 form-group"><label for="imageInput" class="btn btn-primary me-1 mb-1"><i class="fa fa-cloud-upload"></i>&nbsp; Upload Image</label><input id="imageInput" type="file" name="image" class="image-preview-filepond" style="display: none" accept="image/*" required /></div>` +
+      '</center>';
+    var confirmButtonText = 'Confirm';
+    Swal.fire({
+      title: titleSwal,
+      html: htmlSwal,
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText,
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        var input = document.querySelector('input[name="image"]');
+        if (input.files[0]) {
+          var form = new FormData();
+          form.append('image', input.files[0]);
+          form.append('name', document.getElementById('kategoriname').value);
+          form.append('reward', document.getElementById('kategorireward').value);
+          var headers = {};
+          var data = form;
+        } else {
+          var data = JSON.stringify({
+            name: document.getElementById('kategoriname').value,
+            reward: document.getElementById('kategorireward').value,
+          });
+          var headers = {
+            'Content-Type': 'application/json',
+          };
+        }
+        return fetch(`/admin/sampah/${barang_id}`, { method: 'PUT', body: data, headers })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}! Something Wrong!`);
+          });
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (result.value.statusCode == 200) {
+          Swal.fire('Success!', JSON.stringify(result.value.data.message), 'success').then(function () {
+            window.location = '/admin/sampah';
+          });
+        } else {
+          Swal.fire(`Status ${result.value.statusCode}`, JSON.stringify(result.value.message), 'error');
+        }
+      }
+    });
+    const imageInput = document.getElementById('imageInput');
+    imageInput.addEventListener('change', previewImage);
+  }
+
+  function previewImage() {
+    // const input = document.getElementById('imageInput');
+    const input = document.querySelector('input[name="image"]');
+    const preview = document.getElementById('imagePreview');
+
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  // Menambahkan event listener ke input file
+</script>
