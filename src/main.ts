@@ -8,6 +8,8 @@ import * as passport from 'passport';
 import * as session from 'express-session';
 import flash = require('connect-flash');
 
+const PORT = process.env.PORT || 8000;
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useGlobalPipes(
@@ -33,6 +35,6 @@ async function bootstrap() {
   app.use(passport.session());
   app.use(flash());
 
-  await app.listen(8000);
+  await app.listen(PORT);
 }
 bootstrap();
