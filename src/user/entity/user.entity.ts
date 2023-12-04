@@ -1,4 +1,5 @@
 import { Cart } from 'src/tabung/entity/cart.entity';
+import { Transaksi } from 'src/tabung/entity/transaction.entity';
 import {
   Entity,
   Column,
@@ -50,5 +51,11 @@ export class User {
     onUpdate: 'CASCADE',
   })
   @JoinColumn()
-  cart: Cart[];
+  cart: Cart;
+
+  @OneToMany(() => Transaksi, (transaksi) => transaksi.user, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  transaksis: Transaksi[];
 }

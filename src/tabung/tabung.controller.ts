@@ -29,4 +29,14 @@ export class TabungController {
   async deleteSampah(@Param('cart') cart_id: number) {
     return this.tabungService.deleteItem(cart_id);
   }
+
+  @Post('/checkout')
+  async createTransaction(@GetUser() user: User) {
+    return this.tabungService.createTransaksi(user);
+  }
+
+  @Get('/transaction')
+  async listTransactionUser(@GetUser() user: User) {
+    return this.tabungService.getTransactionUser(user);
+  }
 }

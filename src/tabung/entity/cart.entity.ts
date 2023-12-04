@@ -1,6 +1,7 @@
 import { Sampah } from 'src/admin/entity/sampah.entity';
 import { User } from 'src/user/entity';
-import { Entity, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, JoinColumn, CreateDateColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { Transaksi } from './transaction.entity';
 
 @Entity()
 export class Cart {
