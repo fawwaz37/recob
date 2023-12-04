@@ -6,6 +6,7 @@ import * as argon2 from 'argon2';
 import * as ejs from 'ejs';
 import { UserRepository } from 'src/user/repository/user.repository';
 import { OtpRepository } from 'src/user/repository/otp.repository';
+import { CartRepository } from 'src/tabung/repository/cart.repository';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +14,7 @@ export class AuthService {
     private userRepo: UserRepository,
     private otpRepo: OtpRepository,
     private jwt: JwtService,
+    private cartRepo: CartRepository,
     private readonly mailerService: MailerService,
   ) {}
 
@@ -22,6 +24,10 @@ export class AuthService {
     const hash = await argon2.hash(dto.password);
     dto.password = hash;
     const users = await this.userRepo.createUser(dto);
+
+    // const cart = new Cart();
+    // cart.user = users;
+    // await this.cartRepo.createCart(cart);
     return this.signToken(users.user_id, users.email);
   }
 

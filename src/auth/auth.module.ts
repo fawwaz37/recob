@@ -9,6 +9,7 @@ import { AdminRepository } from 'src/admin/repository/admin.repository';
 import { AuthAdminController } from './admin/auth.controller';
 import { AuthAdminService } from './admin/auth.service';
 import { AdminLoginRedirectMiddleware } from './guard';
+import { CartRepository } from 'src/tabung/repository/cart.repository';
 
 @Module({
   imports: [JwtModule.register({})],
@@ -18,6 +19,7 @@ import { AdminLoginRedirectMiddleware } from './guard';
     OtpRepository,
     UserRepository,
     AdminRepository,
+    CartRepository,
     LocalStrategy,
     SessionSerializer,
     AuthAdminService,

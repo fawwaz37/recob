@@ -1,9 +1,13 @@
+import { Cart } from 'src/tabung/entity/cart.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -40,4 +44,11 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToOne(() => Cart, (cart) => cart.user, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn()
+  cart: Cart[];
 }

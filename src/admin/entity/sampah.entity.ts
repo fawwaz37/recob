@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Cart } from 'src/tabung/entity/cart.entity';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class Sampah {
@@ -19,4 +20,10 @@ export class Sampah {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Cart, (item) => item.sampah, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  cart: Cart[];
 }
