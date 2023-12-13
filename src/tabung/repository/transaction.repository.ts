@@ -27,19 +27,28 @@ export class TransactionRepository extends Repository<Transaksi> {
     return this.createQueryBuilder('transaksi')
       .leftJoinAndSelect('transaksi.items', 'item')
       .leftJoinAndSelect('item.sampah', 'sampah')
-      .leftJoinAndSelect('item.transaksi', 'transaksi')
+      .leftJoinAndSelect('item.transaksi', 'transaksiItem')
       .where('transaksi.user.user_id = :userId', { userId })
       .orderBy('transaksi.created_at', 'DESC')
       .getMany();
   }
 
-  async findUserTransactionsWithDetails2(userId: number): Promise<Transaksi[]> {
-    return this.createQueryBuilder('transaksi')
-      .leftJoinAndSelect('transaksi.items', 'item')
-      .leftJoinAndSelect('item.sampah', 'sampah')
-      .leftJoinAndSelect('item.transaksi', 'transaksiItem')
-      .where('transaksi.user.user_id = :userId', { userId })
-      .orderBy('transaksi.created_at', 'DESC')
-      .getMany();
+  async getAllTransactions(): Promise<Transaksi[]> {
+    return await this.find({ relations: ['items', 'items.sampah', 'user'] });
+  }
+
+  async getOneTransactions(transaksi_id: number): Promise<Transaksi> {
+    return await this.findOne({ where: { transaksi_id } });
+  }
+
+  async deleteTransaction(transaksi_id: number) {
+    await this.delete({ transaksi_id });
+  }
+
+  async updateStatus(transaksi_id: number, newStatus: string): Promise<Transaksi> {
+    const transaction = await this.findOne({ where: { transaksi_id } });
+    if (!transaction) return null;
+    transaction.status = newStatus;
+    return this.save(transaction);
   }
 }

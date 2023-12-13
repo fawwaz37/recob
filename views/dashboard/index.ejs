@@ -18,15 +18,18 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h4>Logs Session</h4>
-              <div class="divider">
-                <div id="cancelqr" class="divider-text">
-                  Create Session &nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i>
-                </div>
-              </div>
-            </div>
-            <div class="card-body" id="socket-qr" style="min-height: 200px">
-              <div id="logger"></div>
+              <h4>Deskripsi Recob</h4>
+              <p style="font-size: 20px">
+                Recob adalah solusi digital yang memfasilitasi pengelolaan sampah dan insentif bagi masyarakat,
+                mendorong praktik daur ulang dan menjaga kebersihan lingkungan.
+              </p>
+              <br />
+              <p style="font-size: 20px">
+                Recob muncul sebagai respons terhadap permasalahan global dalam pengelolaan sampah dan kebutuhan untuk
+                meningkatkan kesadaran lingkungan. Dengan teknologi digital, aplikasi ini membantu mempermudah
+                pendataan, pelacakan, dan insentif bagi anggota bank sampah, yang pada gilirannya mendukung upaya daur
+                ulang dan keberlanjutan lingkungan.
+              </p>
             </div>
           </div>
         </div>
@@ -53,31 +56,28 @@
       </div>
       <div class="card">
         <div class="card-header">
-          <h4>Create Session</h4>
+          <h4>Create Category</h4>
         </div>
-        <div class="card-content">
+        <div class="card-content text-center">
           <div class="recent-message px-4 py-3">
-            <form action="/session/create-session" method="post">
-              <center>
-                <div class="form-group">
-                  <input type="text" name="session_name" class="form-control" placeholder="Session Name" required />
-                </div>
-                <div class="pb-4"></div>
-                <button class="btn btn-primary">
-                  <i class="fa-solid fa-qrcode"></i>
-                  &nbsp Create
-                </button>
-              </center>
-            </form>
+            <p style="font-size: 18px">Buat Kategori Sampah Anda Di Sini</p>
+            <a href="/admin/sampah/create" class="btn btn-primary" target="_blank"
+              ><i class="fa-solid fa-plus"></i>&nbsp; Create</a
+            >
           </div>
         </div>
       </div>
       <div class="card">
         <div class="card-header">
-          <h4>Session Active</h4>
+          <h4>Tabung Sampah</h4>
         </div>
-        <div class="card-content">
-          <div class="recent-message px-4 py-3"></div>
+        <div class="card-content text-center">
+          <div class="recent-message px-4 py-3">
+            <p style="font-size: 18px">Lihat Status Tabung Sampah Di Sini</p>
+            <a href="/admin/transaction" class="btn btn-primary" target="_blank"
+              ><i class="fa-solid fa-list"></i>&nbsp; List</a
+            >
+          </div>
         </div>
       </div>
     </div>

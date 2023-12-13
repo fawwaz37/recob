@@ -69,7 +69,7 @@ export class TabungService {
   }
 
   async getTransactionUser(user: User) {
-    const data = await this.transaksiRepo.findUserTransactionsWithDetails2(user.user_id);
+    const data = await this.transaksiRepo.findUserTransactionsWithDetails(user.user_id);
     return { user, data };
   }
 }

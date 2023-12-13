@@ -14,6 +14,10 @@ export class CreateUserDto {
   password: string;
 
   @IsString()
+  @IsNotEmpty()
+  alamat: string;
+
+  @IsString()
   // @NotEquals('password', { message: 'Passwords do not match' })
   @IsNotEmpty()
   passwordAgain: string;
